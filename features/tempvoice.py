@@ -54,15 +54,15 @@ class TempVoice(LulusCog):
                             ),
                         )
                     elif str(data[str(bchannel.id)]) == str(member.id):
-                        old_owner = data[str(bchannel.id)]
                         new_owner = bchannel.members[0]
                         data[str(bchannel.id)] = new_owner.id
-                        if bchannel.name == old_owner.display_name:
+                        if bchannel.name == member.display_name:
                             await bchannel.edit(name=new_owner.display_name)
                         await config.channel_logs.send(
                             embed=Embed(
                                 title='Changement de propriétaire',
-                                description=f"<@{old_owner}> -> {new_owner.mention}",
+                                description=f"{bchannel.mention}\n"
+                                            f"{member.mention} -> {new_owner.mention}",
                                 color=0x00ff00,
                             ),
                         )
