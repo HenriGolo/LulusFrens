@@ -37,7 +37,7 @@ class TempVoice(LulusCog):
             )
 
     async def handle_leave(self, member: discord.Member, before: discord.VoiceState, after: discord.VoiceState):
-        bchannel = before.channel
+        bchannel: discord.VoiceChannel = before.channel
         if bchannel is not None:
             with self.bdd as data:
                 _before = str(bchannel.id) in data
@@ -53,10 +53,11 @@ class TempVoice(LulusCog):
                                 color=0x00ff00,
                             ),
                         )
-                    elif data[str(bchannel.id)] == str(member.id):
+                    elif str(data[str(bchannel.id)]) == str(member.id):
                         old_owner = data[str(bchannel.id)]
                         new_owner = bchannel.members[0]
                         data[str(bchannel.id)] = new_owner.id
+                        await bchannel.edit(name=new_owner.display_name)
                         await config.channel_logs.send(
                             embed=Embed(
                                 title='Changement de propriétaire',
