@@ -1,4 +1,3 @@
-import asyncio
 import datetime
 import importlib
 import pkgutil
@@ -63,12 +62,6 @@ class Lulusfrens(discord.Bot):
 
         # Print dans la console
         print(f"Connecté en tant que {self.user}")
-
-    @staticmethod
-    async def on_message(message: discord.Message):
-        # lance une liste de coroutines en parallèle
-        await asyncio.gather(
-        )
 
     async def on_member_update(self, before: discord.Member, after: discord.Member):
         if before.id == self.user.id:
