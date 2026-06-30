@@ -75,7 +75,7 @@ class Lulusfrens(discord.Bot):
 
     @staticmethod
     async def on_member_join(member: discord.Member):
-        if str(member.guild.id) == config['GUILD_ID']:
+        if str(member.guild.id) == str(config['GUILD_ID']):
             role = await member.guild.fetch_role(int(config['ROLE_ID_EVERYONE']))
             await member.add_roles(role)
         else:
