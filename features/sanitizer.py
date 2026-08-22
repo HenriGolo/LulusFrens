@@ -1,3 +1,4 @@
+import asyncio
 from urllib.parse import urlsplit, SplitResult, parse_qs, parse_qsl, urlunsplit, urlencode
 
 import discord
@@ -302,4 +303,5 @@ class SanitizeCog(LulusCog):
                      sanitized: discord.Message = None):
         sanitizer = Sanitizer(message)
         await ctx.response.send_modal(RenderLink(sanitizer.extract(), title="Rendu des liens"))
+        await asyncio.sleep(20)  # Attendre que l'utilisateur remplisse le modal
         await sanitizer.sanitize(sanitized)
