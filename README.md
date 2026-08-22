@@ -1,4 +1,5 @@
-# MarinovkaBot
+# LulusFrens
+
 Bot discord pour serveur discord privé
 
 # Installation
