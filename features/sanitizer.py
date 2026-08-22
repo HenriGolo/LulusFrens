@@ -82,7 +82,7 @@ class AddException(discord.ui.DesignerModal):
                 delete_after=3,
             )
         # Rerun l'analyse des liens
-        await Sanitizer.run()
+        await Sanitizer.run(interaction.message)
 
 
 class RenderLink(discord.ui.DesignerModal):
@@ -167,7 +167,7 @@ class RenderLink(discord.ui.DesignerModal):
                 renders[domain]['default'] = new_domain or alternative
             if not renders[domain]['default'] in renders[domain]['available']:
                 renders[domain]['available'] += [renders[domain]['default']]
-        await Sanitizer.run()
+        await Sanitizer.run(interaction.message)
         return await interaction.respond(f'Rendu ajouté pour {domain} : {new_domain or alternative}', ephemeral=True)
 
 
