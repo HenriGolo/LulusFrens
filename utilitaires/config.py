@@ -20,6 +20,8 @@ class Config:
         }
         self.values = {k: v for k, v in values.items() if v is not None}
         self.json_format = {}
+        _debug = self.values.get('DEBUG', '0')
+        self.debug = bool(int(_debug) if _debug.isnumeric() else 0)
 
     def __getitem__(self, item):
         return self.values[item]
