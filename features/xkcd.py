@@ -74,7 +74,7 @@ class XKCD(LulusCog):
     @tasks.loop(time=utilitaires.minuit)
     async def random_xkcd_comic(self):
         await self.bot.wait_until_ready()
-        comic = await xkcd.Comic.get_random_comic(xkcd.Comic.get_weighted_random_comic)
+        comic = await Comic.get_random_comic(Comic.get_weighted_random_comic)
         embed = comic.as_embed()
         lulusfrens = await self.bot.fetch_guild(config['GUILD_ID'])
         channel = await lulusfrens.fetch_channel(config['CHANNEL_ID_XKCD'])
