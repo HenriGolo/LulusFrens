@@ -232,7 +232,10 @@ class SanitizeView(discord.ui.View):
             child.disabled = True
         await super().on_timeout()
         if hasattr(self, 'message'):
-            await self.message.edit(view=self)
+            try:
+                await self.message.edit(view=self)
+            except discord.errors.NotFound:
+                pass
 
 
 class Sanitizer:
