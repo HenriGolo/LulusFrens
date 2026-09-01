@@ -1,7 +1,7 @@
 from functools import wraps
 from typing import TypeVar, ParamSpec
 
-from utilitaires import fail, now
+from utilitaires import fail, now, Embed
 from utilitaires.config import config
 
 P = ParamSpec("P")
