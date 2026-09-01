@@ -226,14 +226,17 @@ class SanitizeView(discord.ui.View):
         return url._replace(query=urlencode(queries, doseq=True))
 
     async def on_timeout(self) -> None:
-        for child in self.children:
-            if hasattr(child, 'url') and child.url:
-                continue
-            child.disabled = True
         await super().on_timeout()
         if hasattr(self, 'message'):
             try:
-                await self.message.edit(view=self)
+                await self.message.edit(
+                    view=discord.ui.View(
+                        *filter(
+                            lambda child: hasattr(child, 'url') and child.url,
+                            self.children
+                        )
+                    )
+                )
             except discord.errors.NotFound:
                 pass
 
