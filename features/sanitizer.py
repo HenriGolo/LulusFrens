@@ -278,7 +278,7 @@ class Sanitizer:
                     if message is None:
                         msg = await self.message.reply(view.content, view=view, mention_author=False, silent=True)
                     else:
-                        msg = await message.edit(content=content, view=view)
+                        msg = await message.edit(content=view.content, view=view)
                 elif message is None:
                     msg = await self.message.reply(
                         "C'est bien, tu as nettoyé tes liens",
