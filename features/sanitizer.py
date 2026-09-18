@@ -182,7 +182,6 @@ class SanitizeView(discord.ui.View):
         self.url_content = ''
         self._queries = 0
         self._renders = 0
-        different_render = False
         if urls:
             with self.exceptions as exceptions:
                 surls: list[SplitResult] = list(map(lambda u: self._sanitize(u, exceptions), urls))
@@ -192,7 +191,6 @@ class SanitizeView(discord.ui.View):
                     if has_render := (sn := short_netloc(surl.netloc)) in renders:
                         self._renders += 1
                         if (default := renders[sn].get('default')) is not None:
-                            different_render = True
                             surl = surl._replace(netloc=default)
                 if urlunsplit(surl) == urlunsplit(urls[i]):
                     if not has_render:
