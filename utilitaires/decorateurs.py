@@ -12,6 +12,7 @@ R = TypeVar("R")
 def logger(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):
+        start = now(True)
         args_repr = [f"<cyan>{a!r}<reset>" for a in args]
         kwargs_repr = [f"{k}=<cyan>{v!r}<reset>" for k, v in kwargs.items()]
         signature = '\t' + '\n\t'.join(args_repr + kwargs_repr)
