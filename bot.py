@@ -76,14 +76,6 @@ class Lulusfrens(AutoAddedLulusBot):
         channel_dev = await guild.fetch_channel(config['CHANNEL_ID_LOGS'])
         config.set_log_channel(await channel_dev.create_thread(name=f"Logs {self.start_time.replace(microsecond=0)}"))
         await config.channel_logs.send(self.invite_url)
-        infos = await self.application_info()
-        owner = infos.team and next(
-            filter(
-                lambda tm: tm.role == discord.TeamRole.owner,
-                infos.team.members
-            )
-        ) or infos.owner
-        await config.channel_logs.add_user(owner)
 
         # Message de statut du bot
         activity = discord.Activity(name=guild.name, type=discord.ActivityType.watching)
@@ -115,6 +107,24 @@ class Lulusfrens(AutoAddedLulusBot):
     async def on_guild_join(guild: discord.Guild):
         if str(guild.id) != config['GUILD_ID']:
             await guild.leave()
+
+
+class DevConfig(BaseAutoAddedCog):
+    @commands.slash_command()
+    async def access_logs(self, ctx: discord.ApplicationContext):
+        await ctx.defer(ephemeral=True)
+        infos = await self.bot.application_info()
+        allowed = infos.team and next(
+            filter(
+                lambda tm: tm.role in (discord.TeamRole.owner, discord.TeamRole.developer),
+                infos.team.members
+            )
+        ) or (infos.owner,)
+        if ctx.user.id in map(lambda u: u.id, allowed):
+            await config.channel_logs.add_user(ctx.user)
+            await ctx.respond(config.channel_logs.mention)
+        else:
+            await ctx.respond('Accès refusé')
 
 
 if __name__ == '__main__':
