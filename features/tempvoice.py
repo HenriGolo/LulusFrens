@@ -2,13 +2,13 @@ import asyncio
 
 import discord
 
-from features import LulusCog
+from features import BaseAutoAddedCog
 from utilitaires import Embed
 from utilitaires.config import config
 from utilitaires.json import JsonStore, Transaction
 
 
-class TempVoice(LulusCog):
+class TempVoice(BaseAutoAddedCog):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.channel_id = config['TMP_VOICE_CHANNEL']

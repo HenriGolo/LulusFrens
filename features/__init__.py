@@ -9,7 +9,7 @@ from discord.ext import commands
 from utilitaires.decorateurs import logger
 
 
-class LulusCog(discord.Cog):
+class BaseAutoAddedCog(discord.Cog):
     def __init__(self, bot: discord.Bot):
         self.bot = bot
         for name, method in inspect.getmembers(self):
@@ -17,7 +17,7 @@ class LulusCog(discord.Cog):
                 bot.add_listener(method, name)
 
 
-class Customisation(LulusCog):
+class Customisation(BaseAutoAddedCog):
     @commands.slash_command()
     @logger
     async def avatar(self, ctx: AppCtx, nom: str = '', avatar_url: str = '', banner_url: str = ''):

@@ -39,7 +39,7 @@ def generate_autoaddedbot_class(cogclass: type) -> type:
     return autoaddbot
 
 
-AutoAddedLulusBot = generate_autoaddedbot_class(LulusCog)
+AutoAddedLulusBot = generate_autoaddedbot_class(BaseAutoAddedCog)
 
 
 class Lulusfrens(AutoAddedLulusBot):
